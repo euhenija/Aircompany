@@ -16,6 +16,7 @@ public class PassengerPlane extends Plane{
 
     //=================METHODS=================
     public int getPassengersCapacity() {
+
         return passengersCapacity;
     }
 
@@ -26,12 +27,6 @@ public class PassengerPlane extends Plane{
                 '}');
     }
 
-//    @Override
-//    public String toString() {
-//        return super.toString().replace("}",
-//                ", passengersCapacity=" + passengersCapacity +
-//                        '}');
-//    }
 
     @Override
     public boolean equals(Object o) {
@@ -44,6 +39,7 @@ public class PassengerPlane extends Plane{
 
     @Override
     public int hashCode() {
+
         return Objects.hash(super.hashCode(), passengersCapacity);
     }
 }
