@@ -3,6 +3,7 @@
 // 4-Jan-2019
 
 import Planes.ExperimentalPlane;
+import models.ClassificationLevel;
 import models.MilitaryType;
 import Planes.MilitaryPlane;
 import Planes.PassengerPlane;
@@ -12,9 +13,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-
-
 public class Airport {
+
     private List<? extends Plane> planes;
 
     public Airport(List<? extends Plane> planes) {
@@ -47,13 +47,13 @@ public class Airport {
 
     public PassengerPlane getPassengerPlaneWithMaxPassengersCapacity() {
         List<PassengerPlane> passengerPlanes = getPassengerPlanes();
-        PassengerPlane planeWithMaxCapacity = passengerPlanes.get(0);
+        PassengerPlane planeWithMaxPassengerCapacityInTheAirport = passengerPlanes.get(0);
         for (PassengerPlane passengerPlane : passengerPlanes) {
-            if (passengerPlane.getPassengersCapacity() > planeWithMaxCapacity.getPassengersCapacity()) {
-                planeWithMaxCapacity = passengerPlane;
+            if (passengerPlane.getPassengersCapacity() > planeWithMaxPassengerCapacityInTheAirport.getPassengersCapacity()) {
+                planeWithMaxPassengerCapacityInTheAirport = passengerPlane;
             }
         }
-        return planeWithMaxCapacity;
+        return planeWithMaxPassengerCapacityInTheAirport;
     }
 
     public List<MilitaryPlane> getTransportMilitaryPlanes() {
@@ -79,13 +79,13 @@ public class Airport {
     }
 
     public List<ExperimentalPlane> getExperimentalPlanes() {
-        List<ExperimentalPlane> ExperimentalPlanes = new ArrayList<>();
+        List<ExperimentalPlane> experimentalPlanes = new ArrayList<>();
         for (Plane plane : planes) {
             if (plane instanceof ExperimentalPlane) {
-                ExperimentalPlanes.add((ExperimentalPlane) plane);
+                experimentalPlanes.add((ExperimentalPlane) plane);
             }
         }
-        return ExperimentalPlanes;
+        return experimentalPlanes;
     }
 
     public Airport sortByMaxDistance() {
@@ -104,7 +104,7 @@ public class Airport {
             public int compare(Plane o1, Plane o2) {
                 return o1.getMaxSpeed() - o2.getMaxSpeed();
             }
-        }
+          }
         );
         return this;
     }
@@ -116,6 +116,33 @@ public class Airport {
             }
         });
         return this;
+    }
+
+    public boolean verifyListIsSortedByMaxLoadCapacity() {
+        Airport airport = new Airport(planes);
+        airport.sortPlanesByMaxLoadCapacity();
+        List<? extends Plane> planesSortedByMaxLoadCapacity = airport.getPlanes();
+        boolean nextPlaneMaxLoadCapacityIsHigherThanCurrent = true;
+        for (int i = 0; (i < planesSortedByMaxLoadCapacity.size() - 1); i++) {
+            if (planesSortedByMaxLoadCapacity.get(i).getMaxLoadCapacity() > planesSortedByMaxLoadCapacity.get(i + 1).getMaxLoadCapacity()) {
+                nextPlaneMaxLoadCapacityIsHigherThanCurrent = false;
+             break;
+            }
+        }
+        return nextPlaneMaxLoadCapacityIsHigherThanCurrent;
+    }
+
+    public boolean verifyAtLeasOneExperimentalPlaneHasClassificationLevelHigherThanUnclassified() {
+        Airport airport = new Airport(planes);
+        List<ExperimentalPlane> ExperimentalPlanes = airport.getExperimentalPlanes();
+        boolean hasUnclassifiedPlanes = true;
+        for (ExperimentalPlane experimentalPlane : ExperimentalPlanes) {
+            if (experimentalPlane.getClassificationLevel() == ClassificationLevel.UNCLASSIFIED) {
+                hasUnclassifiedPlanes = false;
+                break;
+            }
+        }
+        return hasUnclassifiedPlanes;
     }
 
     @Override
