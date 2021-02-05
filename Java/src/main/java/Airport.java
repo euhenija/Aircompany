@@ -1,14 +1,18 @@
+// version: 1.1
+// made by Vitali Shulha
+// 4-Jan-2019
+
 import Planes.ExperimentalPlane;
 import models.MilitaryType;
 import Planes.MilitaryPlane;
 import Planes.PassengerPlane;
 import Planes.Plane;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
-import java.util.*;
 
-// version: 1.1
-// made by Vitali Shulha
-// 4-Jan-2019
 
 public class Airport {
     private List<? extends Plane> planes;
@@ -85,11 +89,13 @@ public class Airport {
     }
 
     public Airport sortByMaxDistance() {
-        Collections.sort(planes, new Comparator<Plane>() {
-            public int compare(Plane o1, Plane o2) {
-                return o1.getMaxFlightDistance() - o2.getMaxFlightDistance();
-            }
-        });
+       Comparator<Plane> comparator = new Comparator<Plane>() {
+           @Override
+           public int compare(Plane o1, Plane o2) {
+               return o1.getMaxFlightDistance() - o2.getMaxFlightDistance();
+           }
+       };
+        Collections.sort(planes,comparator);
         return this;
     }
 
@@ -98,7 +104,8 @@ public class Airport {
             public int compare(Plane o1, Plane o2) {
                 return o1.getMaxSpeed() - o2.getMaxSpeed();
             }
-        });
+        }
+        );
         return this;
     }
 
@@ -111,20 +118,11 @@ public class Airport {
         return this;
     }
 
-    private void print(Collection<? extends Plane> collection) {
-        Iterator<? extends Plane> iterator = collection.iterator();
-        while (iterator.hasNext()) {
-            Plane plane = iterator.next();
-            System.out.println(plane);
-        }
-    }
-
     @Override
     public String toString() {
         return "Airport{" +
                 "Planes=" + planes.toString() +
                 '}';
     }
-
 
 }
