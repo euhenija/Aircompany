@@ -1,21 +1,23 @@
 import Planes.ExperimentalPlane;
 import models.ClassificationLevel;
 import Planes.Plane;
+
 import java.util.List;
 
 
 public class AirportCheck {
 
-    private List<? extends Plane> planes;
+    private List planes;
 
-    public AirportCheck(List<? extends Plane> planes) {
+    public AirportCheck(List planes) {
         this.planes = planes;
     }
+
 
     public boolean verifyListIsSortedByMaxLoadCapacity() {
         Airport airport = new Airport(planes);
         airport.sortPlanesByMaxLoadCapacity();
-        List<? extends Plane> planesSortedByMaxLoadCapacity = airport.getPlanes();
+        List<Plane> planesSortedByMaxLoadCapacity = airport.getPlanes();
         boolean nextPlaneMaxLoadCapacityIsHigherThanCurrent = true;
         for (int i = 0; (i < planesSortedByMaxLoadCapacity.size() - 1); i++) {
             if (planesSortedByMaxLoadCapacity.get(i).getMaxLoadCapacity() > planesSortedByMaxLoadCapacity.get(i + 1).getMaxLoadCapacity()) {
