@@ -14,10 +14,6 @@ public class Airport {
 
     private List planes;
 
-    public Airport() {
-        super();
-    }
-
     public Airport(List planes) {
         this.planes = planes;
     }
