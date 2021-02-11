@@ -1,8 +1,8 @@
-package Planes;
+package planes;
 
 import java.util.Objects;
 
-public class PassengerPlane extends Plane{
+public class PassengerPlane extends Plane {
 
 
     private int passengersCapacity;
@@ -12,9 +12,7 @@ public class PassengerPlane extends Plane{
         this.passengersCapacity = passengersCapacity;
     }
 
-
     public int getPassengersCapacity() {
-
         return passengersCapacity;
     }
 
@@ -22,9 +20,8 @@ public class PassengerPlane extends Plane{
     public String toString() {
         return super.toString().replace("}",
                 ", passengersCapacity=" + passengersCapacity +
-                '}');
+                        '}');
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -37,7 +34,6 @@ public class PassengerPlane extends Plane{
 
     @Override
     public int hashCode() {
-
         return Objects.hash(super.hashCode(), passengersCapacity);
     }
 }
